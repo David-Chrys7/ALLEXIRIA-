@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Allexiria — Your Health, Our Expertise</title>
+<style>
+/* ── SYSTEM FONTS ONLY — no external deps ── */
+:root {
+  --navy:    #0D1B2A;
+  --navy2:   #112436;
+  --card:    #152B40;
+  --orange:  #E8622A;
+  --orangeL: #F47A3C;
+  --white:   #FFFFFF;
+  --offwhite:#E8EDF2;
+  --gray:    #8AABB8;
+  --lgray:   #B8CDD8;
+  --teal:    #1C7CB8;
+  --green:   #28C44A;
+  --red:     #E84040;
+  --amber:   #F0A020;
+  --r:       16px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  background: var(--navy);
+  color: var(--offwhite);
+  overflow-x: hidden;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1rem 2.5rem;
+  background: rgba(13,27,42,0.92);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(232,98,42,0.18);
+}
+.nav-logo {
+  font-weight: 800; font-size: 1.35rem; color: var(--white);
+  display: flex; align-items: center; gap: 10px;
+  letter-spacing: -0.02em;
+}
+.nav-logo-heart {
+  width: 32px; height: 32px; border-radius: 50%;
+  border: 2px solid var(--orange);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--orange); font-size: 14px;
+}
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a {
+  font-size: 0.88rem; color: var(--gray); text-decoration: none;
+  transition: color .2s;
+}
+.nav-links a:hover { color: var(--orange); }
+.nav-cta {
+  background: var(--orange); color: var(--white);
+  padding: .55rem 1.4rem; border-radius: 100px;
+  font-size: .88rem; font-weight: 600; text-decoration: none;
+  transition: background .2s, transform .15s;
+}
+.nav-cta:hover { background: var(--orangeL); transform: translateY(-1px); }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: grid; grid-template-columns: 1fr 1fr;
+  align-items: center;
+  padding: 7rem 5vw 4rem;
+  gap: 3rem;
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; top: -150px; right: -80px;
+  width: 650px; height: 650px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(232,98,42,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(232,98,42,0.12); border: 1px solid rgba(232,98,42,0.3);
+  color: var(--orangeL); padding: .4rem 1rem; border-radius: 100px;
+  font-size: .78rem; font-weight: 600; letter-spacing: .05em;
+  margin-bottom: 1.5rem; text-transform: uppercase;
+}
+.hero-badge .pulse {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--orange);
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.7)} }
+
+.hero-title {
+  font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+  font-weight: 800; line-height: 1.08;
+  color: var(--white); margin-bottom: 1.4rem;
+  letter-spacing: -.02em;
+}
+.hero-title .accent { color: var(--orange); }
+.hero-sub {
+  font-size: 1.05rem; line-height: 1.72; color: var(--gray);
+  max-width: 490px; margin-bottom: 2.5rem; font-weight: 400;
+}
+.hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
+.btn-primary {
+  background: var(--orange); color: var(--white);
+  padding: .9rem 2rem; border-radius: 100px;
+  font-size: 1rem; font-weight: 600; text-decoration: none;
+  transition: background .2s, transform .15s; display: inline-block;
+}
+.btn-primary:hover { background: var(--orangeL); transform: translateY(-2px); }
+.btn-outline {
+  border: 1.5px solid rgba(232,98,42,.5); color: var(--orangeL);
+  padding: .9rem 2rem; border-radius: 100px;
+  font-size: 1rem; font-weight: 500; text-decoration: none;
+  transition: all .2s; display: inline-block; background: transparent;
+}
+.btn-outline:hover { background: rgba(232,98,42,.1); transform: translateY(-2px); }
+
+/* ── HERO PHONE MOCKUP ── */
+.hero-visual {
+  display: flex; justify-content: center; align-items: center;
+  position: relative;
+}
+.phone-float {
+  position: relative;
+  animation: float 4.5s ease-in-out infinite;
+}
+@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-14px)} }
+
+.phone-outer {
+  width: 290px;
+  background: #060E18;
+  border-radius: 42px;
+  padding: 14px;
+  box-shadow: 0 50px 100px rgba(0,0,0,.55), 0 0 0 1px rgba(232,98,42,.25);
+}
+.phone-notch {
+  width: 85px; height: 9px;
+  background: rgba(255,255,255,.08); border-radius: 10px;
+  margin: 0 auto 12px;
+}
+.phone-screen {
+  background: #0A1520;
+  border-radius: 30px; overflow: hidden;
+}
+.app-bar {
+  background: var(--teal); padding: 14px 16px 10px;
+}
+.app-bar-tag { font-size: 9px; color: rgba(255,255,255,.65); letter-spacing: .08em; }
+.app-bar-title { font-size: 15px; font-weight: 700; color: #fff; margin-top: 2px; }
+.app-bar-sub { font-size: 10px; color: rgba(255,255,255,.7); margin-top: 1px; }
+
+.app-profile {
+  margin: 10px 10px 6px;
+  background: #0F2236; border-radius: 10px;
+  padding: 9px 12px; display: flex; gap: 9px; align-items: center;
+}
+.app-avatar {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--orange);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; color: #fff; flex-shrink: 0;
+}
+.app-pname { font-size: 11px; font-weight: 600; color: #fff; }
+.app-pallergy { font-size: 9px; color: var(--gray); margin-top: 1px; }
+
+.app-alert {
+  margin: 0 10px 8px;
+  background: #2A0808; border: 1.5px solid var(--red);
+  border-radius: 10px; padding: 10px 12px;
+}
+.app-alert-title { font-size: 10.5px; font-weight: 700; color: var(--red); margin-bottom: 3px; }
+.app-alert-body { font-size: 9px; color: var(--lgray); line-height: 1.4; }
+
+.app-menu-label {
+  font-size: 9px; color: var(--gray); font-weight: 600;
+  letter-spacing: .07em; text-transform: uppercase;
+  padding: 0 12px 5px; margin-top: 4px;
+}
+.app-menu-item {
+  margin: 0 10px 5px; background: #0F2236;
+  border-radius: 8px; padding: 8px 10px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.app-item-name { font-size: 10px; color: #fff; }
+.app-item-cal { font-size: 9px; color: var(--gray); margin-top: 1px; }
+.badge { font-size: 8.5px; font-weight: 700; padding: 3px 7px; border-radius: 20px; }
+.badge-safe { background: rgba(40,196,74,.15); color: var(--green); }
+.badge-danger { background: rgba(232,64,64,.15); color: var(--red); }
+.badge-warn { background: rgba(240,160,32,.15); color: var(--amber); }
+
+/* Float tags */
+.ftag {
+  position: absolute;
+  background: var(--card); border-radius: 10px;
+  padding: 8px 13px;
+  font-size: 11px; font-weight: 500; color: var(--white);
+  white-space: nowrap;
+  box-shadow: 0 8px 24px rgba(0,0,0,.25);
+}
+.ftag-a { right: -55px; top: 70px; border-left: 3px solid var(--red); color: var(--red); }
+.ftag-b { right: -65px; bottom: 130px; border-left: 3px solid var(--green); color: var(--green); }
+.ftag-c { left: -60px; bottom: 80px; border-left: 3px solid var(--teal); color: var(--teal); }
+
+/* ── STATS ── */
+.stats-band {
+  background: #060E18;
+  padding: 3rem 5vw;
+  display: flex; justify-content: center; gap: 4rem; flex-wrap: wrap;
+  border-top: 1px solid rgba(232,98,42,.1);
+  border-bottom: 1px solid rgba(232,98,42,.1);
+}
+.stat-item { text-align: center; }
+.stat-num {
+  font-size: 2.8rem; font-weight: 800;
+  color: var(--orange); line-height: 1; letter-spacing: -.02em;
+}
+.stat-label { font-size: .82rem; color: var(--gray); margin-top: 6px; }
+
+/* ── SECTIONS ── */
+.section { padding: 6rem 5vw; }
+.section-tag {
+  font-size: .75rem; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--orange);
+  margin-bottom: 1rem; display: block;
+}
+.section-title {
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  font-weight: 800; line-height: 1.12;
+  color: var(--white); margin-bottom: 1.2rem; letter-spacing: -.02em;
+}
+.section-body {
+  font-size: 1rem; line-height: 1.75;
+  color: var(--gray); max-width: 580px;
+}
+
+/* ── PROBLEM CARDS ── */
+.problem-grid {
+  display: grid; grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
+  gap: 1.5rem; margin-top: 3.5rem;
+}
+.problem-card {
+  background: var(--card); border-radius: var(--r);
+  padding: 1.8rem; border: 1px solid rgba(255,255,255,.06);
+  transition: transform .2s, box-shadow .2s;
+}
+.problem-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,.25); }
+.p-icon {
+  width: 46px; height: 46px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; margin-bottom: 1.1rem;
+}
+.p-icon-red { background: rgba(232,64,64,.12); }
+.p-icon-amber { background: rgba(240,160,32,.12); }
+.p-icon-blue { background: rgba(28,124,184,.12); }
+.problem-card h3 {
+  font-size: 1rem; font-weight: 700;
+  color: var(--white); margin-bottom: .55rem;
+}
+.problem-card p { font-size: .9rem; color: var(--gray); line-height: 1.65; }
+
+/* ── APP DEMO SECTION ── */
+.demo-section {
+  background: #060E18;
+  padding: 6rem 5vw;
+}
+.demo-inner {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 5rem; align-items: center;
+  max-width: 1100px; margin: 0 auto;
+}
+.demo-features { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 2rem; }
+.demo-feature {
+  display: flex; gap: 1rem; align-items: flex-start;
+}
+.df-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  flex-shrink: 0; margin-top: 5px;
+}
+.df-title { font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: .3rem; }
+.df-body { font-size: .9rem; color: var(--gray); line-height: 1.6; }
+
+/* Big phone mockup for demo section */
+.big-phone-wrap {
+  display: flex; justify-content: center;
+  position: relative;
+}
+.big-phone {
+  width: 320px;
+  background: #060E18;
+  border-radius: 46px;
+  padding: 16px;
+  box-shadow: 0 60px 120px rgba(0,0,0,.6), 0 0 0 1px rgba(232,98,42,.3);
+}
+.big-phone-notch {
+  width: 90px; height: 10px;
+  background: rgba(255,255,255,.07); border-radius: 10px;
+  margin: 0 auto 14px;
+}
+.big-screen {
+  background: #0A1520;
+  border-radius: 32px; overflow: hidden;
+  min-height: 560px;
+}
+.big-bar {
+  background: var(--teal); padding: 16px 18px 12px;
+}
+.big-bar-tag { font-size: 9px; color: rgba(255,255,255,.6); letter-spacing: .08em; }
+.big-bar-name { font-size: 16px; font-weight: 800; color: #fff; margin-top: 2px; }
+.big-bar-sub { font-size: 10px; color: rgba(255,255,255,.7); margin-top: 1px; }
+
+.big-profile {
+  margin: 12px 12px 8px;
+  background: #0F2236; border-radius: 12px;
+  padding: 11px 14px; display: flex; gap: 10px; align-items: center;
+}
+.big-avatar {
+  width: 38px; height: 38px; border-radius: 50%;
+  background: var(--orange);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 800; color: #fff; flex-shrink: 0;
+}
+.big-pname { font-size: 12px; font-weight: 700; color: #fff; }
+.big-pid { font-size: 10px; color: var(--teal); margin-top: 2px; }
+.big-pallergy { font-size: 9.5px; color: var(--gray); margin-top: 1px; }
+
+.big-alert {
+  margin: 0 12px 10px;
+  background: #2A0808; border: 1.5px solid var(--red);
+  border-radius: 12px; padding: 12px 14px;
+  display: flex; gap: 10px; align-items: flex-start;
+}
+.big-alert-icon { font-size: 18px; flex-shrink: 0; }
+.big-alert-title { font-size: 12px; font-weight: 700; color: var(--red); }
+.big-alert-body { font-size: 10px; color: var(--lgray); line-height: 1.4; margin-top: 2px; }
+
+.big-section-label {
+  font-size: 9px; color: var(--gray); font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  padding: 0 14px 6px;
+}
+.big-menu-item {
+  margin: 0 12px 6px; background: #0F2236;
+  border-radius: 10px; padding: 10px 12px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.big-item-left {}
+.big-item-name { font-size: 11px; font-weight: 600; color: #fff; }
+.big-item-cal { font-size: 9px; color: var(--gray); margin-top: 2px; }
+.big-badge { font-size: 9px; font-weight: 700; padding: 4px 9px; border-radius: 20px; }
+.big-safe { background: rgba(40,196,74,.12); color: var(--green); border: 1px solid rgba(40,196,74,.25); }
+.big-danger { background: rgba(232,64,64,.12); color: var(--red); border: 1px solid rgba(232,64,64,.25); }
+.big-warn { background: rgba(240,160,32,.12); color: var(--amber); border: 1px solid rgba(240,160,32,.25); }
+
+.big-emergency {
+  margin: 8px 12px 12px;
+  background: rgba(28,124,184,.1); border: 1px solid rgba(28,124,184,.3);
+  border-radius: 10px; padding: 10px 14px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.big-emr-text { font-size: 10px; color: var(--teal); font-weight: 600; }
+.big-emr-btn {
+  background: var(--teal); color: #fff;
+  font-size: 9px; font-weight: 700; padding: 4px 10px;
+  border-radius: 20px;
+}
+
+/* Phone glow */
+.big-phone-glow {
+  position: absolute; width: 320px; height: 560px;
+  background: radial-gradient(ellipse at center, rgba(232,98,42,.12) 0%, transparent 70%);
+  top: 50%; left: 50%; transform: translate(-50%, -50%);
+  pointer-events: none; z-index: -1;
+}
+
+/* ── SOLUTION SECTION ── */
+.solution-section {
+  background: var(--navy2);
+  padding: 6rem 5vw;
+}
+.features-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(230px,1fr));
+  gap: 1.5rem; margin-top: 3.5rem;
+}
+.feature-card {
+  background: var(--card); border-radius: var(--r);
+  padding: 1.8rem; border: 1px solid rgba(255,255,255,.06);
+  transition: transform .2s, box-shadow .2s;
+}
+.feature-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,.25); }
+.feature-num {
+  font-size: .72rem; font-weight: 700; color: var(--orange);
+  letter-spacing: .1em; margin-bottom: .8rem;
+}
+.feature-card h3 { font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: .55rem; }
+.feature-card p { font-size: .88rem; color: var(--gray); line-height: 1.65; }
+
+/* ── HOW IT WORKS ── */
+.how-section { padding: 6rem 5vw; background: #060E18; }
+.steps {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+  gap: 2rem; margin-top: 3.5rem;
+}
+.step { text-align: center; }
+.step-circle {
+  width: 62px; height: 62px; border-radius: 50%;
+  background: var(--orange); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem; font-weight: 800;
+  margin: 0 auto 1.1rem;
+  box-shadow: 0 4px 20px rgba(232,98,42,.35);
+}
+.step h3 { font-size: .95rem; font-weight: 700; color: var(--white); margin-bottom: .45rem; }
+.step p { font-size: .85rem; color: var(--gray); line-height: 1.6; }
+
+/* ── IMPACT ── */
+.impact-section { padding: 6rem 5vw; }
+.impact-inner {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 5rem; align-items: center;
+}
+.impact-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+}
+.impact-card {
+  background: var(--card); border-radius: var(--r);
+  padding: 1.5rem; text-align: center;
+  border: 1px solid rgba(255,255,255,.06);
+}
+.impact-card .i-num {
+  font-size: 2rem; font-weight: 800; line-height: 1;
+  letter-spacing: -.02em;
+}
+.impact-card .i-label { font-size: .75rem; color: var(--gray); margin-top: 6px; }
+.i-orange { color: var(--orange); }
+.i-red { color: var(--red); }
+.i-teal { color: var(--teal); }
+.i-green { color: var(--green); }
+.impact-card.span2 { grid-column: 1 / -1; }
+
+/* ── CTA ── */
+.cta-section {
+  background: var(--orange);
+  padding: 6rem 5vw; text-align: center;
+  position: relative; overflow: hidden;
+}
+.cta-section::before {
+  content: 'ALLEXIRIA';
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 14rem; font-weight: 800;
+  color: rgba(0,0,0,.06);
+  white-space: nowrap; pointer-events: none;
+  letter-spacing: -.03em;
+}
+.cta-section h2 {
+  font-size: clamp(2rem, 4vw, 3rem); font-weight: 800;
+  color: #fff; margin-bottom: 1rem; position: relative;
+  letter-spacing: -.02em;
+}
+.cta-section p { font-size: 1.05rem; color: rgba(255,255,255,.8); max-width: 480px; margin: 0 auto 2.5rem; position: relative; }
+.cta-btn {
+  background: var(--navy); color: var(--white);
+  padding: 1rem 2.5rem; border-radius: 100px;
+  font-size: 1rem; font-weight: 700; text-decoration: none;
+  display: inline-block; position: relative;
+  transition: transform .15s, box-shadow .2s;
+  letter-spacing: -.01em;
+}
+.cta-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(0,0,0,.3); }
+
+/* ── FOOTER ── */
+footer {
+  background: #060E18;
+  padding: 2.5rem 5vw;
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+  border-top: 1px solid rgba(232,98,42,.1);
+}
+.footer-logo { font-weight: 800; font-size: 1.1rem; color: var(--orange); letter-spacing: -.01em; }
+.footer-text { font-size: .8rem; color: var(--gray); text-align: center; }
+.footer-links { display: flex; gap: 1.5rem; }
+.footer-links a { font-size: .8rem; color: var(--gray); text-decoration: none; transition: color .2s; }
+.footer-links a:hover { color: var(--orange); }
+
+/* ── REVEAL ANIMATION ── */
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  nav { padding: .8rem 1.2rem; }
+  .nav-links { display: none; }
+  .hero { grid-template-columns: 1fr; padding: 6rem 1.5rem 3rem; text-align: center; gap: 3rem; }
+  .hero-sub { max-width: 100%; }
+  .hero-actions { justify-content: center; }
+  .hero-visual { order: -1; }
+  .ftag-a, .ftag-b, .ftag-c { display: none; }
+  .stats-band { gap: 2rem; }
+  .section, .demo-section, .solution-section, .how-section, .impact-section { padding: 4rem 1.5rem; }
+  .demo-inner, .impact-inner { grid-template-columns: 1fr; gap: 3rem; }
+  .big-phone-wrap { margin-bottom: 2rem; }
+  .cta-section { padding: 4rem 1.5rem; }
+  footer { flex-direction: column; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <div class="nav-logo-heart">♥</div>
+    Allexiria
+  </div>
+  <ul class="nav-links">
+    <li><a href="#problem">Problem</a></li>
+    <li><a href="#solution">Solution</a></li>
+    <li><a href="#demo">App Demo</a></li>
+    <li><a href="#impact">Impact</a></li>
+  </ul>
+  <a href="#cta" class="nav-cta">Get Early Access</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge"><span class="pulse"></span>IUGB Social Impact Project</div>
+    <h1 class="hero-title">Your health.<br><span class="accent">Protected</span> on campus.</h1>
+    <p class="hero-sub">
+      Allexiria stores your medical profile, detects allergens in cafeteria meals, and alerts you before you eat something dangerous — all linked to your student ID.
+    </p>
+    <div class="hero-actions">
+      <a href="#cta" class="btn-primary">Join the waitlist</a>
+      <a href="#solution" class="btn-outline">See how it works</a>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="phone-float">
+      <div class="phone-outer">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <div class="app-bar">
+            <div class="app-bar-tag">ALLEXIRIA</div>
+            <div class="app-bar-title">Today's Menu</div>
+            <div class="app-bar-sub">Thursday · Cafétéria IUGB</div>
+          </div>
+          <div class="app-profile">
+            <div class="app-avatar">KA</div>
+            <div>
+              <div class="app-pname">Koné Aminata</div>
+              <div class="app-pallergy">Allergies: Peanuts · Lactose</div>
+            </div>
+          </div>
+          <div class="app-alert">
+            <div class="app-alert-title">⚠ Allergen Detected!</div>
+            <div class="app-alert-body">Riz au gras contains groundnut oil — matches your peanut allergy profile.</div>
+          </div>
+          <div class="app-menu-label">Lunch options</div>
+          <div class="app-menu-item">
+            <div>
+              <div class="app-item-name">Attiéké poisson grillé</div>
+              <div class="app-item-cal">320 kcal</div>
+            </div>
+            <span class="badge badge-safe">✓ Safe</span>
+          </div>
+          <div class="app-menu-item">
+            <div>
+              <div class="app-item-name">Riz au gras</div>
+              <div class="app-item-cal">410 kcal</div>
+            </div>
+            <span class="badge badge-danger">✗ Avoid</span>
+          </div>
+          <div class="app-menu-item">
+            <div>
+              <div class="app-item-name">Foutou banane + sauce</div>
+              <div class="app-item-cal">380 kcal</div>
+            </div>
+            <span class="badge badge-warn">⚠ Check</span>
+          </div>
+        </div>
+      </div>
+      <div class="ftag ftag-a">Allergen alert sent</div>
+      <div class="ftag ftag-b">Safe option found</div>
+      <div class="ftag ftag-c">Medical profile active</div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-band">
+  <div class="stat-item reveal">
+    <div class="stat-num">3,000+</div>
+    <div class="stat-label">IUGB students to protect</div>
+  </div>
+  <div class="stat-item reveal">
+    <div class="stat-num">70%</div>
+    <div class="stat-label">Students unaware of meal ingredients</div>
+  </div>
+  <div class="stat-item reveal">
+    <div class="stat-num">&lt;3s</div>
+    <div class="stat-label">Alert response time</div>
+  </div>
+  <div class="stat-item reveal">
+    <div class="stat-num">0</div>
+    <div class="stat-label">Existing warning systems on campus</div>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section class="section" id="problem">
+  <span class="section-tag">The Problem</span>
+  <h2 class="section-title reveal">Students at IUGB are eating<br>in the dark.</h2>
+  <p class="section-body reveal">Every day, students eat cafeteria meals without knowing if something on their plate could trigger a serious allergic reaction — and when something goes wrong, medical staff have no access to their history.</p>
+  <div class="problem-grid">
+    <div class="problem-card reveal">
+      <div class="p-icon p-icon-red">⚠️</div>
+      <h3>Hidden Food Allergies</h3>
+      <p>Cafeteria meals contain no ingredient labels. Students with allergies have no way to know what they're eating — until it's too late.</p>
+    </div>
+    <div class="problem-card reveal">
+      <div class="p-icon p-icon-amber">🏥</div>
+      <h3>Medical Staff Flying Blind</h3>
+      <p>Campus health services lack access to student medical history, leading to wrong or delayed treatment during emergencies.</p>
+    </div>
+    <div class="problem-card reveal">
+      <div class="p-icon p-icon-blue">⏱️</div>
+      <h3>Every Second Counts</h3>
+      <p>During an allergic reaction, minutes matter. Without fast data access, medical responses are dangerously slow.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section class="solution-section" id="solution">
+  <span class="section-tag">The Solution</span>
+  <h2 class="section-title reveal">A smart health companion<br>built for Ivorian students.</h2>
+  <p class="section-body reveal">Allexiria is a mobile app that stores each student's complete medical profile, connects it to their student ID, and sends real-time alerts when cafeteria food contains a known allergen.</p>
+  <div class="features-grid">
+    <div class="feature-card reveal">
+      <div class="feature-num">01</div>
+      <h3>Secure Medical Profile</h3>
+      <p>Store allergies, blood type, ongoing treatments, and emergency contacts — all encrypted and linked to your student ID.</p>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-num">02</div>
+      <h3>Daily Menu Scanning</h3>
+      <p>Each day's cafeteria menu is cross-checked automatically against student allergy profiles before meals are served.</p>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-num">03</div>
+      <h3>Real-Time Allergy Alerts</h3>
+      <p>If a dish contains a dangerous ingredient for you, you receive a push notification before you enter the cafeteria.</p>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-num">04</div>
+      <h3>Medical Staff Access</h3>
+      <p>Campus health workers get instant access to a student's medical history during emergencies — with prior consent.</p>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-num">05</div>
+      <h3>Emergency Contacts</h3>
+      <p>In critical situations, the app automatically notifies designated emergency contacts and the campus health center.</p>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-num">06</div>
+      <h3>Verified Health Info</h3>
+      <p>Access curated medical information about treatments — no more relying on rumors or campus misinformation.</p>
+    </div>
+  </div>
+</section>
+
+<!-- APP DEMO -->
+<section class="demo-section" id="demo">
+  <div class="demo-inner">
+
+    <!-- Big Phone Mockup -->
+    <div class="big-phone-wrap reveal">
+      <div class="big-phone-glow"></div>
+      <div class="big-phone">
+        <div class="big-phone-notch"></div>
+        <div class="big-screen">
+          <div class="big-bar">
+            <div class="big-bar-tag">ALLEXIRIA · SMART HEALTH</div>
+            <div class="big-bar-name">My Health Dashboard</div>
+            <div class="big-bar-sub">Friday · IUGB Grand-Bassam</div>
+          </div>
+
+          <div class="big-profile">
+            <div class="big-avatar">KA</div>
+            <div>
+              <div class="big-pname">Koné Aminata</div>
+              <div class="big-pid">STU-2024-0182 · Blood type: O+</div>
+              <div class="big-pallergy">Allergies: Peanuts · Lactose · Gluten</div>
+            </div>
+          </div>
+
+          <div class="big-alert">
+            <div class="big-alert-icon">⚠️</div>
+            <div>
+              <div class="big-alert-title">Allergen Detected in Today's Menu</div>
+              <div class="big-alert-body">Riz au gras contains groundnut oil — matches your peanut allergy. Recommended: Attiéké poisson.</div>
+            </div>
+          </div>
+
+          <div class="big-section-label">Today's Menu — Safety Check</div>
+          <div class="big-menu-item">
+            <div class="big-item-left">
+              <div class="big-item-name">Attiéké poisson grillé</div>
+              <div class="big-item-cal">320 kcal · No allergens detected</div>
+            </div>
+            <span class="big-badge big-safe">✓ Safe</span>
+          </div>
+          <div class="big-menu-item">
+            <div class="big-item-left">
+              <div class="big-item-name">Riz au gras</div>
+              <div class="big-item-cal">410 kcal · Contains peanut oil</div>
+            </div>
+            <span class="big-badge big-danger">✗ Avoid</span>
+          </div>
+          <div class="big-menu-item">
+            <div class="big-item-left">
+              <div class="big-item-name">Foutou banane + sauce arachide</div>
+              <div class="big-item-cal">380 kcal · May contain lactose</div>
+            </div>
+            <span class="big-badge big-warn">⚠ Check</span>
+          </div>
+          <div class="big-menu-item">
+            <div class="big-item-left">
+              <div class="big-item-name">Salade verte + poulet</div>
+              <div class="big-item-cal">290 kcal · No allergens</div>
+            </div>
+            <span class="big-badge big-safe">✓ Safe</span>
+          </div>
+
+          <div class="big-emergency">
+            <div class="big-emr-text">🏥 Emergency profile ready for medical staff</div>
+            <div class="big-emr-btn">View</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feature list -->
+    <div>
+      <span class="section-tag">App Interface</span>
+      <h2 class="section-title reveal">See Allexiria<br>in action.</h2>
+      <p class="section-body reveal" style="margin-bottom:0">Every screen is designed for clarity and speed. When seconds count, the interface gets out of the way.</p>
+
+      <div class="demo-features">
+        <div class="demo-feature reveal">
+          <div class="df-dot" style="background:var(--teal)"></div>
+          <div>
+            <div class="df-title">Student Health Dashboard</div>
+            <div class="df-body">Your full medical profile, allergies, blood type, and current medications — all visible in one tap.</div>
+          </div>
+        </div>
+        <div class="demo-feature reveal">
+          <div class="df-dot" style="background:var(--red)"></div>
+          <div>
+            <div class="df-title">Real-Time Danger Alerts</div>
+            <div class="df-body">Color-coded safety status for every dish. Red = avoid. Amber = check. Green = safe to eat.</div>
+          </div>
+        </div>
+        <div class="demo-feature reveal">
+          <div class="df-dot" style="background:var(--green)"></div>
+          <div>
+            <div class="df-title">Smart Menu Analysis</div>
+            <div class="df-body">Each cafeteria menu is automatically scanned for allergens before serving time every day.</div>
+          </div>
+        </div>
+        <div class="demo-feature reveal">
+          <div class="df-dot" style="background:var(--orange)"></div>
+          <div>
+            <div class="df-title">Emergency Medical Access</div>
+            <div class="df-body">Campus doctors get one-tap access to your profile during emergencies — with your prior consent.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-section" id="how">
+  <div style="text-align:center;max-width:600px;margin:0 auto">
+    <span class="section-tag">How it works</span>
+    <h2 class="section-title reveal">From enrollment to protection<br>in 4 steps.</h2>
+  </div>
+  <div class="steps">
+    <div class="step reveal">
+      <div class="step-circle">1</div>
+      <h3>Create your profile</h3>
+      <p>Sign up with your IUGB student ID. Enter your allergies, blood type, and health conditions securely.</p>
+    </div>
+    <div class="step reveal">
+      <div class="step-circle">2</div>
+      <h3>Cafeteria uploads the menu</h3>
+      <p>Each morning, cafeteria staff upload the daily menu with full ingredient lists via the admin dashboard.</p>
+    </div>
+    <div class="step reveal">
+      <div class="step-circle">3</div>
+      <h3>Allexiria scans for your allergens</h3>
+      <p>The app cross-references your allergy profile against every ingredient in today's menu — automatically.</p>
+    </div>
+    <div class="step reveal">
+      <div class="step-circle">4</div>
+      <h3>You eat safely</h3>
+      <p>Receive a clear green/amber/red safety report before lunch, so you always know what's safe to eat.</p>
+    </div>
+  </div>
+</section>
+
+<!-- IMPACT -->
+<section class="impact-section" id="impact">
+  <div class="impact-inner">
+    <div>
+      <span class="section-tag">Social Impact</span>
+      <h2 class="section-title reveal">Saving lives at IUGB<br>and beyond.</h2>
+      <p class="section-body reveal">Allexiria is more than a convenience tool — it's life-safety infrastructure for African campuses that lack centralized health systems. Our goal is to eliminate preventable food-related emergencies and create a replicable model for universities across Côte d'Ivoire and West Africa.</p>
+      <br>
+      <p class="section-body reveal" style="margin-top:1rem">This project was born from real incidents experienced by students at IUGB. Designed by students, for students.</p>
+    </div>
+    <div class="impact-grid reveal">
+      <div class="impact-card">
+        <div class="i-num i-red">12+</div>
+        <div class="i-label">Food incidents reported at IUGB</div>
+      </div>
+      <div class="impact-card">
+        <div class="i-num i-orange">70%</div>
+        <div class="i-label">Students with undisclosed allergies</div>
+      </div>
+      <div class="impact-card">
+        <div class="i-num i-teal">0</div>
+        <div class="i-label">Campus warning systems currently</div>
+      </div>
+      <div class="impact-card">
+        <div class="i-num i-green">3,000+</div>
+        <div class="i-label">Students who benefit immediately</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="cta">
+  <h2>Ready to protect your campus?</h2>
+  <p>Join the waitlist to be among the first IUGB students to access Allexiria at launch.</p>
+  <a href="mailto:Allexiriaci@gmail.com" class="cta-btn">Request Early Access →</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Allexiria</div>
+  <div class="footer-text">© 2025 Allexiria · Smart Healthcare for IUGB Campus · Grand-Bassam, Côte d'Ivoire</div>
+  <div class="footer-links">
+    <a href="#problem">Problem</a>
+    <a href="#solution">Solution</a>
+    <a href="#demo">App</a>
+    <a href="#cta">Contact</a>
+  </div>
+</footer>
+
+<script>
+  const els = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 75);
+      }
+    });
+  }, { threshold: 0.1 });
+  els.forEach(el => obs.observe(el));
+</script>
+
+</body>
+</html>
